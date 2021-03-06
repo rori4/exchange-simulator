@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import CommonCard from "common/components/CommonCard"
 import { Button, InputGroup, FormControl } from "react-bootstrap"
 import { useDispatch } from "react-redux"
-import { setUser } from "features/userWidget/userSlice"
+import { setUser } from "features/user/userSlice"
 export default function UserWidget() {
 	const dispatch = useDispatch()
 	const [userIdInput, setUserIdInput] = useState("")

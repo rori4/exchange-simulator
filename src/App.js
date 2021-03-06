@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import NavBar from "common/components/NavBar"
 import { Card, Button } from "react-bootstrap"
 import OrderBook from "features/orderBook/OrderBookWidget"
-import UserWidget from "features/userWidget/UserWidget"
+import UserWidget from "features/user/UserWidget"
 import PlaceOrderWidget from "features/placeOrder/PlaceOrderWidget"
 
 function App() {

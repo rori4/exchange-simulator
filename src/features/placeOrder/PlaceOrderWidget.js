@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import CommonCard from "common/components/CommonCard"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { placeOrder } from "features/placeOrder/placeOrderSlice"
-import { selectUserId } from "features/userWidget/userSlice"
+import { selectUserId } from "features/user/userSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function PlaceOrderWidget() {
