@@ -45,6 +45,7 @@ export const selectPendingOrders = (state) =>
 
 export const selectOrderBook = createSelector(selectPendingOrders, (orders) => {
 	const orderBookBySide = groupBy(orders, "side")
+	const limitOrdersPerSide = 10
 	const bidOrders = get(orderBookBySide, "BID", []).sort(
 		(a, b) => b.price - a.price
 	)
@@ -52,8 +53,11 @@ export const selectOrderBook = createSelector(selectPendingOrders, (orders) => {
 		(a, b) => b.price - a.price
 	)
 	return {
-		BID: bidOrders.slice(bidOrders.length - 10, bidOrders.length),
-		ASK: askOrders.slice(0, 10),
+		BID: bidOrders.slice(0, limitOrdersPerSide),
+		ASK: askOrders.slice(
+			askOrders.length - limitOrdersPerSide,
+			askOrders.length
+		),
 	}
 })
 // Default export reducer

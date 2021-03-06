@@ -19,13 +19,13 @@ const renderOrderBook = (props) => {
 	const { orderBook } = props
 	return (
 		<tbody>
-			{orderBook.BID.map((order) => renderOrder(order, props))}
+			{orderBook.ASK.map((order) => renderOrder(order, props))}
 			<tr>
-				<th>TOKEN</th>
+				<th>TOTAL</th>
 				<th>TOKEN/ETH</th>
 				<th>ETH</th>
 			</tr>
-			{orderBook.ASK.map((order) => renderOrder(order, props))}
+			{orderBook.BID.map((order) => renderOrder(order, props))}
 		</tbody>
 	)
 }

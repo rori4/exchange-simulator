@@ -16,7 +16,7 @@ function generateDummyOrderBook() {
 			orderId: generateId(),
 			price: price,
 			amount: randomIntFromInterval(1000, 40000),
-			side: price > 1.4 ? "BID" : "ASK",
+			side: price < 1.4 ? "BID" : "ASK",
 			userId: userIdList[randomUserIdx],
 			status: ORDER_STATUS.PENDING,
 		})
