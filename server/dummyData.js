@@ -4,6 +4,7 @@ const {
 	randomDecimalFromInterval,
 	generateUserIdList,
 } = require("./utils")
+const { ORDER_STATUS } = require("./constants")
 
 const userIdList = generateUserIdList(5)
 function generateDummyOrderBook() {
@@ -15,8 +16,9 @@ function generateDummyOrderBook() {
 			orderId: generateId(),
 			price: price,
 			amount: randomIntFromInterval(1000, 40000),
-			side: price > 1.4 ? "ASK" : "BID",
+			side: price > 1.4 ? "BID" : "ASK",
 			userId: userIdList[randomUserIdx],
+			status: ORDER_STATUS.PENDING,
 		})
 	}
 	// console.log(orderBook)

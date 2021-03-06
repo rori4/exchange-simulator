@@ -9,6 +9,8 @@ const {
 } = require("./validations/orderValidations")
 const { generateId } = require("./utils")
 const { dummyOrderBook } = require("./dummyData")
+const { ORDER_STATUS } = require("./constants")
+
 const port = process.env.PORT || 3001
 const app = express()
 
@@ -16,10 +18,6 @@ app.use(cors()) // Access-Control-Allow-Origin: *
 
 //TODO: create dummy data
 let orderBook = process.env.DUMMY_DATA ? dummyOrderBook : []
-
-const ORDER_STATUS = {
-	PENDING: "pending",
-}
 
 app.use(bodyParser.json())
 app.get("/getOrderbook", (req, res) => {
