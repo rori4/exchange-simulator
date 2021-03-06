@@ -1,7 +1,11 @@
 const express = require("express")
-const { validate, ValidationError, Joi } = require("express-validation")
+const { validate, ValidationError } = require("express-validation")
 const bodyParser = require("body-parser")
 const crypto = require("crypto")
+const {
+	cancelOrderValidation,
+	placeOrderValidation,
+} = require("./validations/orderValidations")
 
 const port = process.env.PORT || 3001
 const app = express()
@@ -12,22 +16,6 @@ let orderBook = []
 
 const ORDER_STATUS = {
 	PENDING: "pending",
-}
-
-const placeOrderValidation = {
-	body: Joi.object({
-		price: Joi.number().required(),
-		amount: Joi.number().required(),
-		side: Joi.string().valid("BID", "ASK").required(),
-		userId: Joi.string().required(),
-	}),
-}
-
-const cancelOrderValidation = {
-	body: Joi.object({
-		orderId: Joi.string().required(),
-		userId: Joi.string().required(),
-	}),
 }
 
 app.use(bodyParser.json())
