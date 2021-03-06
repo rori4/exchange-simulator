@@ -1,6 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { serverApi } from "common/api"
 
-export const counterSlice = createSlice({
+// Thunks
+export const fetchOrders = createAsyncThunk(
+	"orderBook/fetchOrders",
+	async (_, { dispatch, getState }) => {
+		console.log("here")
+		return await serverApi.fetchOrderbook().then((res) => res.json())
+	}
+)
+
+export const orderBookSlice = createSlice({
 	name: "orderBook",
 	initialState: {
 		orders: [],
@@ -10,21 +20,23 @@ export const counterSlice = createSlice({
 	// which detects changes to a "draft state" and produces a brand new
 	// immutable state based off those changes
 	reducers: {
-		updateOrderBook: (state, action) => {
-			state.orders = action.payload
+		// updateOrderBook: (state, action) => {
+		// 	state.orders = action.payload
+		// },
+	},
+	extraReducers: {
+		[fetchOrders.pending]: (state, action) => {},
+		[fetchOrders.fulfilled]: (state, { payload }) => {
+			state.orders = payload
 		},
+		[fetchOrders.rejected]: (state, action) => {},
 	},
 })
 
-export const { setAllOrders } = counterSlice.actions
-
-// Thunks
-export const fetchOrders = (amount) => (dispatch) => {
-	//TODO:
-}
+export const { updateOrderBook } = orderBookSlice.actions
 
 // Selectors
 export const selectCount = (state) => state.orders
 
 // Default export reducer
-export default counterSlice.reducer
+export default orderBookSlice.reducer
