@@ -152,3 +152,8 @@
 .text-ask-order {
 	color: red;
 }
+
+.cancel-order-btn {
+	padding: 0.2em !important;
+	font-size: 0.7rem !important;
+}

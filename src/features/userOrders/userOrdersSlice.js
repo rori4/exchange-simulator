@@ -45,4 +45,6 @@ const userOrdersSlice = createSlice({
 	},
 })
 
+export const selectUserOrders = (state) => state.userOrders.orders
+
 export default userOrdersSlice.reducer
