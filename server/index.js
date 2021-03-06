@@ -50,7 +50,7 @@ app.put("/cancelOrder", validate(cancelOrderValidation, {}, {}), (req, res) => {
 		(i) => i.orderId !== orderId && i.userId !== userId
 	)
 	//TODO: checks if orderId exists or userId exists
-	res.json({ result: "success" })
+	res.json({ result: "success", orderId: orderId })
 })
 
 app.use(function (err, req, res, next) {
