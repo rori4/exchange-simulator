@@ -9,6 +9,30 @@ class ServerApi {
 			method: "GET",
 		})
 	}
+
+	fetchOrdersForUser = ({ userId }) => {
+		return fetch(`${this.SERVER_ENDPOINT}/getOrdersForUser/${userId}`, {
+			method: "GET",
+		})
+	}
+
+	placeOrder = (data) => {
+		return fetch(`${this.SERVER_ENDPOINT}/placeOrder`, {
+			method: "POST",
+			body: JSON.stringify(data),
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+		})
+	}
+
+	cancelOrder = (data) => {
+		return fetch(`${this.SERVER_ENDPOINT}/cancelOrder`, {
+			method: "PUT",
+			body: JSON.stringify(data),
+		})
+	}
 }
 
 export default ServerApi
