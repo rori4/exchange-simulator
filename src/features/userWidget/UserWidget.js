@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import CommonCard from "common/components/CommonCard"
 import { Button, InputGroup, FormControl } from "react-bootstrap"
 import { useDispatch } from "react-redux"
-import { setUser } from "features/userWidget/userWidgetSlice"
+import { setUser } from "features/userWidget/userSlice"
 export default function UserWidget() {
 	const dispatch = useDispatch()
 	const [userIdInput, setUserIdInput] = useState("")
@@ -20,7 +20,12 @@ export default function UserWidget() {
 				/>
 			</InputGroup>
 
-			<Button variant="primary" onClick={() => dispatch(setUser(userIdInput))}>
+			<Button
+				variant="primary"
+				size="lg"
+				block
+				onClick={() => dispatch(setUser(userIdInput))}
+			>
 				Login
 			</Button>
 			{/* TODO: history of logged users */}
