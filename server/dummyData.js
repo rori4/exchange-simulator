@@ -18,10 +18,9 @@ function generateDummyOrderBook() {
 			userId: userIdList[randomUserIdx],
 		})
 	}
-	console.log(orderBook)
+	return orderBook
 }
-generateDummyOrderBook()
 
 module.exports = {
-	orderBook: [{}],
+	dummyOrderBook: generateDummyOrderBook(),
 }

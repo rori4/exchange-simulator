@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const { validate, ValidationError } = require("express-validation")
 const bodyParser = require("body-parser")
@@ -6,12 +7,12 @@ const {
 	placeOrderValidation,
 } = require("./validations/orderValidations")
 const { generateId } = require("./utils")
-
+const { dummyOrderBook } = require("./dummyData")
 const port = process.env.PORT || 3001
 const app = express()
 
 //TODO: create dummy data
-let orderBook = []
+let orderBook = process.env.DUMMY_DATA ? dummyOrderBook : []
 
 const ORDER_STATUS = {
 	PENDING: "pending",
