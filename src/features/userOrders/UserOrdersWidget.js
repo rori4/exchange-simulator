@@ -3,11 +3,14 @@ import CommonCard from "common/components/CommonCard"
 import { fetchOrdersByUser } from "features/userOrders/userOrdersSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { selectUserId } from "features/user/userSlice"
-import { selectUserOrders } from "features/userOrders/userOrdersSlice"
+import {
+	selectUserOrders,
+	cancelOrder,
+} from "features/userOrders/userOrdersSlice"
 import { Button } from "react-bootstrap"
 
 const renderUserOrders = (props) => {
-	const { userOrders } = props
+	const { userOrders, dispatch } = props
 	return (
 		<tbody>
 			<tr>
@@ -30,7 +33,7 @@ const renderUserOrders = (props) => {
 							className="cancel-order-btn"
 							variant="danger"
 							size="sm"
-							onClick={() => console.log("test")}
+							onClick={() => dispatch(cancelOrder(order.orderId))}
 						>
 							Cancel
 						</Button>
@@ -51,7 +54,7 @@ export default function UserOrdersWidget() {
 	return (
 		<CommonCard header="Open Orders">
 			<table className="table table-dark table-sm small">
-				{renderUserOrders({ userOrders })}
+				{renderUserOrders({ userOrders, dispatch })}
 			</table>
 		</CommonCard>
 	)

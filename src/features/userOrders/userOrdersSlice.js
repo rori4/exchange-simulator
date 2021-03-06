@@ -1,15 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { serverApi } from "common/api"
+import { get } from "lodash"
 import { removeOrder } from "features/orderBook/orderBookSlice"
 
 export const cancelOrder = createAsyncThunk(
 	"userOrdersSlice/cancelOrder",
-	async (data, { dispatch, getState }) => {
+	async (orderId, { dispatch, getState }) => {
+		const state = getState()
+		const userId = get(state, "user.id", null)
 		const cancelOrder = await serverApi
-			.cancelOrder(data)
+			.cancelOrder({ userId, orderId })
 			.then((res) => res.json())
 		if (cancelOrder.result === "success") {
-			removeOrder(cancelOrder.orderId)
+			dispatch(removeOrder({ orderId: cancelOrder.orderId }))
 		}
 		return cancelOrder
 	}

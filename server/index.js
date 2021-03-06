@@ -46,11 +46,19 @@ app.post("/placeOrder", validate(placeOrderValidation, {}, {}), (req, res) => {
 
 app.put("/cancelOrder", validate(cancelOrderValidation, {}, {}), (req, res) => {
 	const { orderId, userId } = req.body
-	orderBook = orderBook.filter(
-		(i) => i.orderId !== orderId && i.userId !== userId
+	const orderIdxToCancel = orderBook.findIndex(
+		(o) => o.orderId === orderId && o.userId === userId
 	)
-	//TODO: checks if orderId exists or userId exists
-	res.json({ result: "success", orderId: orderId })
+	const orderToCancel = orderBook[orderIdxToCancel]
+	if (orderIdxToCancel !== -1) {
+		orderBook.splice(orderIdxToCancel, 1)
+		console.log(
+			`CANCELLED ${orderToCancel.side} @ ${orderToCancel.price} ${orderToCancel.amount}`
+		)
+		res.json({ result: "success", orderId: orderId })
+	} else {
+		res.json({ result: "no such orderId and userId combination" })
+	}
 })
 
 app.use(function (err, req, res, next) {
