@@ -1,15 +1,14 @@
 const express = require("express")
 const { validate, ValidationError } = require("express-validation")
 const bodyParser = require("body-parser")
-const crypto = require("crypto")
 const {
 	cancelOrderValidation,
 	placeOrderValidation,
 } = require("./validations/orderValidations")
+const { generateId } = require("./utils")
 
 const port = process.env.PORT || 3001
 const app = express()
-const generateId = () => crypto.randomBytes(16).toString("hex")
 
 //TODO: create dummy data
 let orderBook = []
