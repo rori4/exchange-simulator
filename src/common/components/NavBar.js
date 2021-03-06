@@ -1,19 +1,18 @@
+import { selectUserId } from "features/user/userSlice"
 import React from "react"
-import { Navbar, Nav, Button, Form, FormControl } from "react-bootstrap"
+import { Navbar } from "react-bootstrap"
+import { useSelector } from "react-redux"
 
 export default function NavBar() {
+	const userId = useSelector(selectUserId)
 	return (
 		<Navbar bg="primary" variant="dark">
 			<Navbar.Brand href="#home">📈 Coinance</Navbar.Brand>
-			{/* <Nav className="mr-auto">
-				<Nav.Link href="#home">Home</Nav.Link>
-				<Nav.Link href="#features">Features</Nav.Link>
-				<Nav.Link href="#pricing">Pricing</Nav.Link>
-			</Nav> */}
-			<Form inline>
-				{/* <FormControl type="text" placeholder="Search" className="mr-sm-2" /> */}
-				{/* <Button variant="outline-light">Search</Button> */}
-			</Form>
+			<Navbar.Collapse className="justify-content-end">
+				<Navbar.Text className="text-light">
+					{userId ? `UserId: ${userId}` : "Please login first!"}
+				</Navbar.Text>
+			</Navbar.Collapse>
 		</Navbar>
 	)
 }
