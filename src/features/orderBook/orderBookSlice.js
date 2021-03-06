@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { groupBy, get } from "lodash"
+import { createSelector } from "reselect"
 import { serverApi } from "common/api"
 
 // Thunks
 export const fetchOrders = createAsyncThunk(
 	"orderBook/fetchOrders",
 	async (_, { dispatch, getState }) => {
-		console.log("here")
 		return await serverApi.fetchOrderbook().then((res) => res.json())
 	}
 )
@@ -36,7 +37,21 @@ export const orderBookSlice = createSlice({
 export const { updateOrderBook } = orderBookSlice.actions
 
 // Selectors
-export const selectCount = (state) => state.orders
+export const selectPendingOrders = (state) =>
+	state.orderBook.orders.filter((o) => o.status === "pending")
 
+export const selectOrderBook = createSelector(selectPendingOrders, (orders) => {
+	const orderBookBySide = groupBy(orders, "side")
+	const bidOrders = get(orderBookBySide, "BID", []).sort(
+		(a, b) => b.price - a.price
+	)
+	const askOrders = get(orderBookBySide, "ASK", []).sort(
+		(a, b) => b.price - a.price
+	)
+	return {
+		BID: bidOrders.slice(bidOrders.length - 10, bidOrders.length),
+		ASK: askOrders.slice(0, 10),
+	}
+})
 // Default export reducer
 export default orderBookSlice.reducer

@@ -145,10 +145,10 @@
 	padding-left: 20px;
 }
 
-td.cancel-order {
-	cursor: pointer;
+.text-bid-order {
+	color: green;
 }
 
-tr.order-book-order {
-	cursor: pointer;
+.text-ask-order {
+	color: red;
 }
