@@ -9,6 +9,7 @@ import UserWidget from "features/user/UserWidget"
 import PlaceOrderWidget from "features/placeOrder/PlaceOrderWidget"
 import UserOrdersWidget from "features/userOrders/UserOrdersWidget"
 import ChartWidget from "features/chart/ChartWidget"
+import AllFilledOrders from "features/allFilledOrders/AllFilledOrders"
 
 function App() {
 	return (
@@ -27,17 +28,7 @@ function App() {
 					<UserOrdersWidget />
 				</div>
 				<div className="vertical">
-					<Card className="card bg-dark text-white">
-						<Card.Header>Featured</Card.Header>
-						<Card.Body>
-							<Card.Title>Special title treatment</Card.Title>
-							<Card.Text>
-								With supporting text below as a natural lead-in to additional
-								content.
-							</Card.Text>
-							<Button variant="primary">Go somewhere</Button>
-						</Card.Body>
-					</Card>
+					<AllFilledOrders />
 				</div>
 			</div>
 		</div>
