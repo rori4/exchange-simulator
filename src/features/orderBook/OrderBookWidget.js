@@ -30,7 +30,7 @@ const renderOrderBook = (props) => {
 	)
 }
 
-export default function OrderBook(props) {
+export default function OrderBookWidget(props) {
 	const dispatch = useDispatch()
 	const orderBook = useSelector(selectOrderBook)
 	// in useEffect

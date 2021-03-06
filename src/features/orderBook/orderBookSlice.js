@@ -21,9 +21,9 @@ export const orderBookSlice = createSlice({
 	// which detects changes to a "draft state" and produces a brand new
 	// immutable state based off those changes
 	reducers: {
-		// updateOrderBook: (state, action) => {
-		// 	state.orders = action.payload
-		// },
+		pushOrder: (state, action) => {
+			state.orders.push(action.payload)
+		},
 	},
 	extraReducers: {
 		[fetchOrders.pending]: (state, action) => {},
@@ -34,7 +34,7 @@ export const orderBookSlice = createSlice({
 	},
 })
 
-export const { updateOrderBook } = orderBookSlice.actions
+export const { updateOrderBook, pushOrder } = orderBookSlice.actions
 
 // Selectors
 export const selectPendingOrders = (state) =>
