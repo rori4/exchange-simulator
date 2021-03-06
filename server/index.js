@@ -1,15 +1,31 @@
 const express = require("express")
 const { validate, ValidationError, Joi } = require("express-validation")
 const bodyParser = require("body-parser")
+const crypto = require("crypto")
+
 const port = process.env.PORT || 3001
 const app = express()
-const orderBook = []
+const generateId = () => crypto.randomBytes(16).toString("hex")
 
-const orderValidation = {
+//TODO: create dummy data
+let orderBook = []
+
+const ORDER_STATUS = {
+	PENDING: "pending",
+}
+
+const placeOrderValidation = {
 	body: Joi.object({
 		price: Joi.number().required(),
 		amount: Joi.number().required(),
 		side: Joi.string().valid("BID", "ASK").required(),
+		userId: Joi.string().required(),
+	}),
+}
+
+const cancelOrderValidation = {
+	body: Joi.object({
+		orderId: Joi.string().required(),
 		userId: Joi.string().required(),
 	}),
 }
@@ -22,18 +38,31 @@ app.get("/getOrderbook", (req, res) => {
 
 app.get("/getOrdersForUser/:userId", (req, res) => {
 	const { userId } = req.params
-	console.log(userId)
-	res.json(200)
+	const ordersByUser = orderBook.filter((i) => i.userId === userId)
+	res.json(ordersByUser)
 })
 
-app.post("/placeOrder", validate(orderValidation, {}, {}), (req, res) => {
+app.post("/placeOrder", validate(placeOrderValidation, {}, {}), (req, res) => {
 	const order = req.body
-	console.log(order)
-	res.json(200)
+	const decoratedOrder = {
+		orderId: generateId(),
+		status: ORDER_STATUS.PENDING,
+		...order,
+	}
+	orderBook.push(decoratedOrder)
+	console.log(
+		`PLACED ${decoratedOrder.side} @ ${decoratedOrder.price} ${decoratedOrder.amount}`
+	)
+	res.json(decoratedOrder)
 })
 
-app.put("/cancelOrder", (req, res) => {
-	res.json(200)
+app.put("/cancelOrder", validate(cancelOrderValidation, {}, {}), (req, res) => {
+	const { orderId, userId } = req.body
+	orderBook = orderBook.filter(
+		(i) => i.orderId !== orderId && i.userId !== userId
+	)
+	//TODO: checks if orderId exists or userId exists
+	res.json({ result: "success" })
 })
 
 app.use(function (err, req, res, next) {
