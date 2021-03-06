@@ -3,6 +3,8 @@ import CommonCard from "common/components/CommonCard"
 import { Button, InputGroup, FormControl } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { setUser } from "features/user/userSlice"
+import { fetchOrdersByUser } from "features/userOrders/userOrdersSlice"
+
 export default function UserWidget() {
 	const dispatch = useDispatch()
 	const [userIdInput, setUserIdInput] = useState("")
@@ -24,7 +26,10 @@ export default function UserWidget() {
 				variant="primary"
 				size="lg"
 				block
-				onClick={() => dispatch(setUser(userIdInput))}
+				onClick={() => {
+					dispatch(setUser(userIdInput))
+					dispatch(fetchOrdersByUser(userIdInput))
+				}}
 			>
 				Login
 			</Button>

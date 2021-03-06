@@ -4,7 +4,7 @@ import { pushOrder } from "features/orderBook/orderBookSlice"
 
 // Thunks
 export const placeOrder = createAsyncThunk(
-	"orderBook/placeOrder",
+	"placeOrder/submitOrder",
 	async (order, { dispatch, getState }) => {
 		const orderPlaced = await serverApi
 			.placeOrder(order)

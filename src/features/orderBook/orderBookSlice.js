@@ -24,6 +24,9 @@ export const orderBookSlice = createSlice({
 		pushOrder: (state, action) => {
 			state.orders.push(action.payload)
 		},
+		removeOrder: (state, { payload }) => {
+			state.orders = state.orders.filter((o) => o.orderId !== payload.orderId)
+		},
 	},
 	extraReducers: {
 		[fetchOrders.pending]: (state, action) => {},
@@ -34,7 +37,7 @@ export const orderBookSlice = createSlice({
 	},
 })
 
-export const { updateOrderBook, pushOrder } = orderBookSlice.actions
+export const { pushOrder, removeOrder } = orderBookSlice.actions
 
 // Selectors
 export const selectPendingOrders = (state) =>

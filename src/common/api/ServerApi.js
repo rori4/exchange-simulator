@@ -10,7 +10,7 @@ class ServerApi {
 		})
 	}
 
-	fetchOrdersForUser = ({ userId }) => {
+	fetchOrdersForUser = (userId) => {
 		return fetch(`${this.SERVER_ENDPOINT}/getOrdersForUser/${userId}`, {
 			method: "GET",
 		})
